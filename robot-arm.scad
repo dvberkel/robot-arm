@@ -7,10 +7,13 @@ module arm_outline(shoulder_radius=5, elbow_radius=3, upper_arm_length=20, lower
     }
 }
 
-module arm(height=5, shoulder_radius=5, elbow_radius=3, upper_arm_length=20, lower_arm_length=10, elbow_angle=45, thickness=1) {
-    difference() {
-        linear_extrude(height=height) arm_outline(shoulder_radius, elbow_radius, upper_arm_length, lower_arm_length, elbow_angle);
-        translate([0, 0, thickness]) linear_extrude(height=height-thicknes) offset(r=-thickness) arm_outline(shoulder_radius, elbow_radius, upper_arm_length, lower_arm_length, elbow_angle); 
+module arm(height=5, shoulder_radius=5, elbow_radius=3, upper_arm_length=20, lower_arm_length=10, elbow_angle=45, thickness=1, axle_radius=2) {
+    union() {
+        difference() {
+            linear_extrude(height=height) arm_outline(shoulder_radius, elbow_radius,    upper_arm_length, lower_arm_length, elbow_angle);
+            translate([0, 0, thickness]) linear_extrude(height=height) offset(r=-thickness) arm_outline(shoulder_radius, elbow_radius, upper_arm_length, lower_arm_length, elbow_angle); 
+        }
+        cylinder(h=height, r=axle_radius);
     }
 }
 
